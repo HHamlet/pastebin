@@ -2,7 +2,11 @@ from sqlalchemy.orm import DeclarativeBase,  Mapped, mapped_column
 from sqlalchemy import String, Text
 
 
-class PastModel(DeclarativeBase):
+class BaseModel(DeclarativeBase):
+    pass
+
+
+class PastModel(BaseModel):
     __tablename__ = "past"
 
     id: Mapped[int] = mapped_column(primary_key=True)
