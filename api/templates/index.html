@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin</title>
+</head>
+<body>
+    <h1>Pastebin</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+        <p style="color: green;">{{ success }}</p>
+        <p>Ваш Paste доступен по адресу: <a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
+    <form method="POST" action="/create">
+        <textarea name="content" rows="10" cols="50" placeholder="Введите текст..."></textarea><br>
+        <button type="submit">Создать</button>
+    </form>
+</body>
+</html>
