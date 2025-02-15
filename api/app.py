@@ -6,8 +6,10 @@ from sqlalchemy.exc import NoResultFound
 from sqlalchemy.sql import select
 from db.db import async_session
 from db.core.models import PastModel
+from pygments.formatters import HtmlFormatter
 import string
 import random
+import markdown
 
 app = FastAPI()
 
@@ -59,7 +61,13 @@ async def get_paste(request: Request, slug: str):
                 result = temp.one()
             except NoResultFound:
                 raise HTTPException(status_code=404, detail="Paste not found")
-            return templates.TemplateResponse("paste.html", {"request": request, "slug": slug, "content": result})
+            html_content = markdown.markdown(result, extensions=["fenced_code", "codehilite"])
+            formatter = HtmlFormatter(style="friendly")
+            code_styles = formatter.get_style_defs('.codehilite')
+
+            return templates.TemplateResponse("paste.html", {"request": request, "slug": slug,
+                                                             "content": html_content,
+                                                             "code_styles": code_styles})
 
 
 if __name__ == "__main__":
