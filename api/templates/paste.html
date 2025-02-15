@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paste {{ slug }}</title>
+    <style>
+        {{ code_styles | safe }}
+    </style>
 </head>
 <body>
     <h1>Paste {{ slug }}</h1>
-    <pre>{{ content }}</pre>
+    <pre>{{ content | safe }}</pre>
     <a href="/">Создать новый Paste</a>
 </body>
 </html>
